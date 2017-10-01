@@ -6,7 +6,7 @@ var FCM = require('fcm-node')
 
 var fcm = new FCM(process.env.fcm)
 
-var filenameLastHeader = "lastHeader"
+var filenameLastHeader = "./lastHeader"
 
 setInterval(function() {
   var res = request('GET', "http://fagutvalget.no/index.php");
@@ -24,12 +24,12 @@ setInterval(function() {
 
       }
     } else {
-      console.log('no file for last header. Is this the first run?')
+      console.log('no file for last header. Is this the first run? '+__dirname)
     }
 
     alert(header,link) //TODO remove
 
-    console.log(header+": "+link)
+
     fs.writeFileSync(filenameLastHeader,header)
   } else {
     console.log("Got response: " + res.statusCode);
@@ -39,7 +39,7 @@ setInterval(function() {
 
 
 var alert = function(header,link) {
-  console.log("Alert! New header")
+  console.log("Alert! New header: "+header)
   var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
     to: '/topics/all',
 
