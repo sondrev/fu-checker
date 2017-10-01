@@ -25,7 +25,7 @@ var checkWebsite = function() {
 
       }
     } else {
-      console.log("No lastHeader-file")
+      alert("No lastHeader-file")
       console.log('no file for last header. Is this the first run? '+__dirname)
     }
 
@@ -60,7 +60,7 @@ var alert = function(title,body) {
 
 }
 
-console.log("Starting fu-checker")
+alert("Starting fu-checker")
 checkWebsite();
 setInterval(function() {
   checkWebsite();
