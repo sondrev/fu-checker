@@ -7,8 +7,9 @@ var FCM = require('fcm-node')
 var fcm = new FCM(process.env.fcm)
 
 var filenameLastHeader = "./lastHeader"
+var runEvery=60*1000; //in ms
 
-setInterval(function() {
+var checkWebsite = function() {
   var res = request('GET', "http://fagutvalget.no/index.php");
   if (res.statusCode==200) {
     var html = res.getBody().toString()
@@ -24,31 +25,26 @@ setInterval(function() {
 
       }
     } else {
+      console.log("No lastHeader-file")
       console.log('no file for last header. Is this the first run? '+__dirname)
     }
-
-    alert(header,link) //TODO remove
-
 
     fs.writeFileSync(filenameLastHeader,header)
   } else {
     console.log("Got response: " + res.statusCode);
   }
+}
 
-}, 10*1000);
 
-
-var alert = function(header,link) {
-  console.log("Alert! New header: "+header)
-  var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+var alert = function(title,body) {
+  console.log("Sending alert! "+title+" "+body)
+  var message = {
     to: '/topics/all',
-
     notification: {
-        title: header,
-        body: link
+        title: title,
+        body: body
     },
-
-    data: {  //you can send only notification or only data(or include both)
+    data: {
         my_key: 'my value',
         my_another_key: 'my another value'
     }
@@ -63,3 +59,9 @@ var alert = function(header,link) {
   })
 
 }
+
+console.log("Starting fu-checker")
+checkWebsite();
+setInterval(function() {
+  checkWebsite();
+}, runEvery);
