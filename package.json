@@ -1,0 +1,23 @@
+{
+  "name": "fu-checker",
+  "version": "1.0.0",
+  "description": "Checks fagutvalget.no for updates",
+  "main": "fu-checker.js",
+  "dependencies": {
+    "http": "^0.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sondrev/fu-checker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sondrev/fu-checker/issues"
+  },
+  "homepage": "https://github.com/sondrev/fu-checker#readme"
+}
