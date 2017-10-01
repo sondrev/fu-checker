@@ -2,8 +2,11 @@ var http = require('http');
 var request = require('sync-request');
 var htmlToJson = require('html2json').html2json
 var fs = require('fs');
+var FCM = require('fcm-node')
 
-var filenameLastHeader = "lastHeader.txt"
+var fcm = new FCM(process.env.fcm)
+
+var filenameLastHeader = "lastHeader"
 
 setInterval(function() {
   var res = request('GET', "http://fagutvalget.no/index.php");
@@ -17,9 +20,14 @@ setInterval(function() {
     if (fs.existsSync(filenameLastHeader)) {
       let lastHeader=fs.readFileSync(filenameLastHeader)
       if (lastHeader != header) {
-        console.log("Alert! New header")
+        alert(header,link)
+
       }
+    } else {
+      console.log('no file for last header. Is this the first run?')
     }
+
+    alert(header,link) //TODO remove
 
     console.log(header+": "+link)
     fs.writeFileSync(filenameLastHeader,header)
@@ -27,4 +35,31 @@ setInterval(function() {
     console.log("Got response: " + res.statusCode);
   }
 
-}, 1*1000);
+}, 10*1000);
+
+
+var alert = function(header,link) {
+  console.log("Alert! New header")
+  var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+    to: '/topics/all',
+
+    notification: {
+        title: header,
+        body: link
+    },
+
+    data: {  //you can send only notification or only data(or include both)
+        my_key: 'my value',
+        my_another_key: 'my another value'
+    }
+}
+
+  fcm.send(message, function(err, response){
+      if (err) {
+          console.log("Something has gone wrong!\n"+err)
+      } else {
+          console.log("Successfully sent with response: ", response)
+      }
+  })
+
+}
