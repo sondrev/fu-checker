@@ -4,6 +4,7 @@
   "description": "Checks fagutvalget.no for updates",
   "main": "fu-checker.js",
   "dependencies": {
+    "fcm-node": "^1.2.0",
     "fs": "0.0.1-security",
     "html2json": "^1.0.2",
     "http": "0.0.0",
