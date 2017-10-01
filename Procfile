@@ -1,1 +1,1 @@
-web: node fu-checker.js
+worker: node fu-checker.js
