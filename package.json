@@ -4,7 +4,10 @@
   "description": "Checks fagutvalget.no for updates",
   "main": "fu-checker.js",
   "dependencies": {
-    "http": "^0.0.0"
+    "http": "^0.0.0",
+    "fs": "^0.0.0",
+    "html2json": "^0.0.0",
+    "sync-request": "^0.0.0"
   },
   "devDependencies": {},
   "scripts": {
