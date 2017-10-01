@@ -10,6 +10,7 @@ var filenameLastHeader = "./lastHeader"
 var runEvery=60*1000; //in ms
 
 var checkWebsite = function() {
+  console.log("checking website")
   var res = request('GET', "http://fagutvalget.no/index.php");
   if (res.statusCode==200) {
     var html = res.getBody().toString()
